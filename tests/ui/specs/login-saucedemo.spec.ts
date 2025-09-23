@@ -1,7 +1,9 @@
 import { expect, test } from "@playwright/test";
+import LoginPageSauceDemo from "../pages/login-page-saucedemo";
 
 const userName = "standard_user";
 const password = "secret_sauce";
+let loginPage: LoginPageSauceDemo;
 const URL = "https://www.saucedemo.com/";
 const targetURL = "https://www.saucedemo.com/inventory.html";
 
@@ -11,17 +13,24 @@ test.describe.configure({ mode: "serial" });
 
 test.beforeEach(async ({ page }) => {
   await page.goto(URL);
+  loginPage = new LoginPageSauceDemo(page);
 });
 
-test("regular sign in", async ({ page }) => {
-  await page.goto(URL);
-  const usernameField = page.getByPlaceholder("Username");
-  const passwordField = await page.getByPlaceholder("Password");
-  const signInButton = await page.getByRole("button", { name: "Login" });
+test.describe("SauceDemo- Login", () => {
+  test(`successfull login`, async () => {
+    await loginPage.doLogin(userName, password);
+    await loginPage.checkLoggedIn();
+  });
 
-  await usernameField.fill(userName);
-  await passwordField.fill(password);
-  await signInButton.click();
+  test(`failing login - invalid username`, async () => {
+    const invalidUsername = "Invalid";
+    await loginPage.doLogin(invalidUsername, password);
+    await loginPage.checkInvalidCredentials();
+  });
 
-  await expect(page.url()).toBe(targetURL);
+  test(`failing login - invalid password`, async () => {
+    const invalidPassword = "Invalid";
+    await loginPage.doLogin(userName, invalidPassword);
+    await loginPage.checkInvalidCredentials();
+  });
 });

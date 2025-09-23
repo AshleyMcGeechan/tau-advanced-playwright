@@ -1,6 +1,8 @@
-import { expect, test } from "@playwright/test";
+import { test } from "@playwright/test";
+import InventoryPageSauceDemo from "../pages/inventory-page-saucedemo";
 
 const URL = "https://www.saucedemo.com/inventory.html";
+let inventoryPage: InventoryPageSauceDemo;
 
 test.beforeEach(async ({ page }) => {
   await page.goto(URL);
@@ -12,17 +14,16 @@ test.describe("Saucedemo", () => {
       storageState: ".auth/standard-user-saucedemo.json",
     });
     const standardPage = await standardContext.newPage();
-    await standardPage.goto(URL);
-    await expect(standardPage.url()).toBe(URL);
+    inventoryPage = new InventoryPageSauceDemo(standardPage);
+    standardPage.goto(URL);
+    await inventoryPage.checkLoggedInStandard();
 
     const visualContext = await browser.newContext({
       storageState: ".auth/visual-user-saucedemo.json",
     });
     const visualPage = await visualContext.newPage();
-    await visualPage.goto(URL);
-    await expect(visualPage.url()).toBe(URL);
-
-    await standardContext.close();
-    await visualContext.close();
+    inventoryPage = new InventoryPageSauceDemo(visualPage);
+    visualPage.goto(URL);
+    await inventoryPage.checkLoggedInVisual();
   });
 });
