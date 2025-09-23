@@ -1,5 +1,10 @@
-import { type Page, type Locator , type BrowserContext, expect } from '@playwright/test';
-import uiPages from '../../utils/uiPages';
+import {
+  type Page,
+  type Locator,
+  type BrowserContext,
+  expect,
+} from "@playwright/test";
+import uiPages from "../../utils/uiPages";
 
 class MenuPage {
   readonly page: Page;
@@ -9,7 +14,7 @@ class MenuPage {
   constructor(page: Page, context: BrowserContext) {
     this.page = page;
     this.context = context;
-    this.bookStoreAPI = page.getByText('Book Store API', { exact: true });
+    this.bookStoreAPI = page.getByText("Book Store API", { exact: true });
   }
 
   async openSwaggerAndCheck() {

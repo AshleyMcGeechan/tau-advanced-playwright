@@ -1,4 +1,4 @@
-import { APIRequestContext } from '@playwright/test';
+import { APIRequestContext } from "@playwright/test";
 
 export async function executeRequest(
   apiContext: APIRequestContext,
@@ -12,7 +12,7 @@ export async function executeRequest(
     const responseOk = await response.ok();
 
     if (!responseOk) {
-    // if (responseCode !== 200) {
+      // if (responseCode !== 200) {
       const errorStatus = `Code: ${responseCode} \r\n`;
       const responseStatus = `Status: ${responseOk} \r\n`;
       const errorResponse = `Response: ${await response.text()} \r\n`;
@@ -20,11 +20,12 @@ export async function executeRequest(
     }
 
     return response;
-
   } catch (error) {
     const errorRequestUrl = `Request url: ${requestUrl} \r\n`;
     const errorRequestMethod = `Method: ${method} \r\n`;
-    const errorRequestOptions = `Request options: ${JSON.stringify(requestOptions)} \r\n`;
+    const errorRequestOptions = `Request options: ${JSON.stringify(
+      requestOptions
+    )} \r\n`;
 
     throw new Error(
       `Invalid request! Failed on \'executeRequest\' method. \r\n ${errorRequestUrl} ${errorRequestMethod} ${errorRequestOptions} ${error}`

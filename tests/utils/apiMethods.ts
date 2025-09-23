@@ -1,6 +1,6 @@
 export default {
-  delete: 'delete',
-  get: 'get',
-  post: 'post',
-  put: 'put',
+  delete: "delete",
+  get: "get",
+  post: "post",
+  put: "put",
 };
