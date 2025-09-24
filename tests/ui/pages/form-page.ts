@@ -44,10 +44,6 @@ class FormPage {
     await this.firstNameField.fill(name);
   }
 
-  async assertFirstNameValue(name: string) {
-    await expect(this.firstNameField).toHaveValue(name);
-  }
-
   async fillLastName(name: string) {
     await this.lastNameField.fill(name);
   }
@@ -60,40 +56,8 @@ class FormPage {
     await this.genderRadio.getByText(gender, { exact: true }).click();
   }
 
-  async clickGenderMale() {
-    await this.genderRadio.getByText("Male", { exact: true }).click();
-  }
-
-  async clickGenderFemale() {
-    await this.genderRadio.getByText("Female", { exact: true }).click();
-  }
-
-  async clickGenderOther() {
-    await this.genderRadio.getByText("Other", { exact: true }).click();
-  }
-
   async fillMobile(mobileNumber: string) {
     await this.mobileField.fill(mobileNumber);
-  }
-
-  async assertMobileValue(mobileNumber: string) {
-    await expect(this.mobileField).toHaveValue(mobileNumber);
-  }
-
-  async fillSubjects(subject: string) {
-    await this.subjectField.fill(subject);
-  }
-
-  async hobbyClickSports() {
-    await this.hobbyCheckboxes.getByText("Sports").click();
-  }
-
-  async hobbyClickReading() {
-    await this.hobbyCheckboxes.getByText("Reading").click();
-  }
-
-  async hobbyClickMusic() {
-    await this.hobbyCheckboxes.getByText("Music").click();
   }
 
   async fillMandatoryDetails(
