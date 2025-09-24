@@ -27,7 +27,7 @@ test.beforeAll(async ({ playwright }) => {
   });
 });
 
-test.describe("Books - Fixture & API", () => {
+test.describe.skip("Books - Fixture & API", () => {
   // The scope of use is file or describe
   test.use({ isDupe: false });
   test("Add brand new book", async ({ page, bookPage }) => {

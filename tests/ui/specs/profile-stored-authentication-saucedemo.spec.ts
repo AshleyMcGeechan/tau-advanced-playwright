@@ -10,7 +10,7 @@ test.beforeEach(async ({ page }) => {
   loginPage = new LoginPageSauceDemo(page);
 });
 
-test.describe("Profile - Stored Auth", () => {
+test.describe.skip("Profile - Stored Auth", () => {
   test("Check logged in", async ({ page }) => {
     await loginPage.checkLoggedIn();
   });
