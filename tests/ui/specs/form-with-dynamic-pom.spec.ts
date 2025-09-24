@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
   formPage = await hooks.beforeEach(page, FormPage, pages.form);
 });
 
-test.describe.only("Form Page - Submit Form", () => {
+test.describe("Form Page - Submit Form", () => {
   test(`Form Fill Invalid - Empty`, async () => {
     await formPage.clickSubmit();
     await formPage.assertFormNotSubmitted();
