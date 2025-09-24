@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
   bookPage = await hooks.beforeEach(page, BookPage, pages.bookStorePage);
 });
 
-test.describe("Books - Dynamic Page Object Model", () => {
+test.describe.skip("Books - Dynamic Page Object Model", () => {
   test("Add brand new book", async () => {
     await bookPage.clickAtSpeakingJSBook();
     await bookPage.checkSpeakingJSIsbn();

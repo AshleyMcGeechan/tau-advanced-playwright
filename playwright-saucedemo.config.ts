@@ -4,7 +4,7 @@ import baseEnvUrl from "./tests/utils/environmentBaseUrl";
 require("dotenv").config({ path: "./.env", override: true });
 
 export default defineConfig({
-  globalSetup: require.resolve("./tests/setup/global-setup"),
+  globalSetup: require.resolve("./tests/setup/global-setup-saucedemo"),
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: 1,
@@ -25,7 +25,7 @@ export default defineConfig({
   projects: [
     {
       name: "auth-setup",
-      testMatch: /auth-setup\.ts/,
+      testMatch: /auth-setup-saucedemo\.ts/,
     },
     {
       name: "chromium",
@@ -38,6 +38,7 @@ export default defineConfig({
       name: "chromium-auth",
       use: {
         ...devices["Desktop Chrome"],
+        // storageState: '.auth/admin.json', //use this in case you have multiple projects one per user
       },
       dependencies: ["auth-setup"],
     },

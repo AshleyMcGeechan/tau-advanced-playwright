@@ -4,7 +4,7 @@ import pages from "../../utils/pages";
 
 let profilePage: ProfilePage;
 
-// test.use({ storageState: '.auth/user.json' });
+test.use({ storageState: ".auth/user.json" });
 
 test.beforeEach(async ({ page }) => {
   await page.goto(pages.profile);
