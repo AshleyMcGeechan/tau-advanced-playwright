@@ -2,7 +2,7 @@ import { test } from "../fixtures/books-search-fixture";
 
 test.describe.configure({ mode: "serial" });
 
-test.describe.only("Books - Fixture & API", () => {
+test.describe("Book Search - Fixture", () => {
   test.describe("Single result", () => {
     test.use({
       queryString: "You Don't Know JS",

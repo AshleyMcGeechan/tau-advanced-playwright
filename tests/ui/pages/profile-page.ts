@@ -6,6 +6,7 @@ import {
 } from "@playwright/test";
 import bookListData from "../../data/book-list-data";
 import apiPaths from "../../utils/apiPaths";
+import allBookData from "../../data/all-book-data";
 
 class SearchPage {
   readonly page: Page;
@@ -82,6 +83,30 @@ class SearchPage {
         body: JSON.stringify({ ...bookListData }),
       })
     );
+  }
+
+  async assertBookVisible(isbn: string) {
+    await expect(
+      this.page.getByRole("link", { name: this.bookNameFromIsbn(isbn) })
+    ).toBeVisible();
+  }
+
+  async assertBookNotVisible(isbn: string) {
+    await expect(
+      this.page.getByRole("link", { name: this.bookNameFromIsbn(isbn) })
+    ).not.toBeVisible();
+  }
+
+  bookNameFromIsbn(isbn: string) {
+    const book = allBookData.books.filter((element: { isbn: string }) => {
+      return element.isbn == isbn;
+    });
+
+    if (book) {
+      return book[0].title;
+    }
+
+    throw new Error("ISBN does not correspond to book.");
   }
 }
 

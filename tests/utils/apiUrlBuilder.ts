@@ -25,7 +25,6 @@ function bindUrl(
   if (endpoint === endpoints.books.put) {
     endpointParts.push(isbn);
   }
-
   return endpointParts.join("/");
 }
 
@@ -34,17 +33,18 @@ function searchParamsForUrl(page: string, userId?: string) {
 
   switch (page) {
     case endpoints.books.delete:
-      queryParams = { UserId: userId };
+      if (userId) {
+        queryParams = { UserId: userId };
+      }
       break;
     default:
       queryParams = {};
   }
-
   return new URLSearchParams(queryParams).toString();
 }
 
 export function buildUrl(endpoint: string, userId?: string, isbn?: string) {
-  const env = process.env.ENV!;
+  const env = process.env.NODE_ENV!;
   const url = [
     bindUrl(endpoint, env, userId, isbn),
     searchParamsForUrl(endpoint, userId),
