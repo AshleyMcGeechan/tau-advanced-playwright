@@ -56,16 +56,10 @@ test.describe.skip("Profile - API Interception", () => {
   test("Sort books", async ({ page, context }) => {
     await watchAPICallAndMockResponse(page, context);
     await profilePage.checkBooksList();
-    await eyes.check(
-      "Profile page - pre-sort",
-      Target.window().fully().layout()
-    );
+    await eyes.check("Profile page - pre-sort", Target.window().fully());
     await profilePage.sortBooksList();
     await profilePage.checkSort();
-    await eyes.check(
-      "Profile page - post-sort",
-      Target.window().fully().layout()
-    );
+    await eyes.check("Profile page - post-sort", Target.window().fully());
   });
 });
 
