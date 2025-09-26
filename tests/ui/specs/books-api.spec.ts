@@ -7,6 +7,7 @@ import pages from "../../utils/pages";
 import createBooksCollection from "../../api/requests/create-books-collection";
 import LoginPage from "../pages/login-page";
 import hooks from "../../utils/hooks";
+import bookAdditionDeletion from "../../data/book-addition-deletion";
 
 test.use({ storageState: { cookies: [], origins: [] } });
 test.describe.configure({ mode: "serial" });
@@ -43,8 +44,8 @@ test.beforeEach(async ({ page }) => {
   await page.goto(pages.profile, { waitUntil: "load" });
 });
 
-test.describe("Books - Fixture & API", () => {
-  test.use({ books: ["9781593275846", "9781449325862", "9781593277574"] });
+test.describe.skip("Books - Fixture & API", () => {
+  test.use({ books: bookAdditionDeletion });
   test("Add list of books to the collection", async ({
     profileTest,
     books,

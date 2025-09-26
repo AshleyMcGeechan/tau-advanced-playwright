@@ -1,10 +1,18 @@
-import { type Page, type Locator, expect } from "@playwright/test";
+import {
+  type Page,
+  type Locator,
+  expect,
+  BrowserContext,
+} from "@playwright/test";
 import { buildUrl } from "../../utils/uiUrlBuilder";
 import messages from "../../utils/messages";
 import pages from "../../utils/pages";
+import bookListData from "../../data/book-list-data";
+import apiPaths from "../../utils/apiPaths";
 
 class BooksPage {
   readonly page: Page;
+  readonly booksRequestRegExp: RegExp;
   readonly searchBar: Locator;
   readonly rowGroup: Locator;
   readonly firstRow: Locator;
@@ -12,6 +20,7 @@ class BooksPage {
 
   constructor(page: Page) {
     this.page = page;
+    this.booksRequestRegExp = new RegExp(apiPaths.books);
     this.searchBar = page.getByRole("textbox", { name: "Type to search" });
     this.rowGroup = page.getByRole("rowgroup");
     this.firstRow = page.getByRole("rowgroup").first();
@@ -27,6 +36,14 @@ class BooksPage {
     const titles = await this.rowGroup.getByRole("link");
     const count = await titles.count();
     await expect(count).toEqual(expectedQuantity);
+  }
+
+  async mockBooksListResponse(context: BrowserContext) {
+    await context.route(this.booksRequestRegExp, (route) =>
+      route.fulfill({
+        body: JSON.stringify({ ...bookListData }),
+      })
+    );
   }
 }
 
